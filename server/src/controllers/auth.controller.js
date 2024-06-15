@@ -30,7 +30,7 @@ export const signin = (req, res, next) => {
         bcrypt.compare(password, user.password).then((valid) => {
             if (valid) {
                 const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
-                res.cookie("token", token, { httpOnly: true, secure: true }).status(200).send({
+                res.cookie("token", token, { httpOnly: true, secure: true, sameSite: "none" }).status(200).send({
                     username: user.username,
                     email: user.email,
                     avatar: user.avatar,
